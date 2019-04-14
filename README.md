@@ -2,12 +2,16 @@
 
 Experiments with GraalVM
 
-## Build and run:
+## Build and Run:
 
     $ mvn clean verify    
     $ java -cp target/sample-graalvm.jar com.github.phoswald.sample.Application
 
-    $ ./native-image-docker.sh
+    $ docker run -it --rm \
+      -v $(pwd)/target:/target \
+      -w /target \
+      oracle/graalvm-ce:1.0.0-rc15 \
+      native-image -cp sample-graalvm.jar com.github.phoswald.sample.Application sample-graalvm
     $ ./target/sample-graalvm
 
 Feature | Size
