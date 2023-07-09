@@ -1,5 +1,5 @@
 #!/bin/bash
-# --no-fallback: build a standalone native executable or report a failure
+# --no-fallback: build a standalone native executable or report a failure (prevent embedding the JVM)
 # --static:      can be specified to build static image (can use 'FROM scratch' in Docker)
 # no effect: -e LANGUAGE=en_GB
 # no effect: -e LANG=en_GB.UTF-8
@@ -7,7 +7,7 @@
 docker run -it --rm \
   -v $(pwd)/target:/target \
   -w / \
-  ghcr.io/graalvm/native-image:22.3.1 \
+  ghcr.io/graalvm/native-image:22.3.2 \
   --no-fallback "$@" \
   -cp target/sample-graalvm-*.jar com.github.phoswald.sample.Application \
   -Dfile.encoding=UTF-8 \

@@ -2,7 +2,7 @@
 
 Experiments with GraalVM
 
-See:
+Links:
 
 - https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildOptions/
 - https://github.com/graalvm/container/pkgs/container/native-image
