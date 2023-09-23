@@ -16,8 +16,11 @@ $ java -cp target/sample-graalvm-*.jar com.github.phoswald.sample.Application pr
 ~~~
 
 ~~~
-$ mvn clean verify && ./build-native-image.sh
-$ mvn clean verify && ./build-native-image.sh --static
+$ ./native-image.sh --no-fallback
+$ ./native-image.sh --no-fallback --static
+
+$ ./native-image-docker.sh --no-fallback
+$ ./native-image-docker.sh --no-fallback --static
 
 $ file target/sample-graalvm
 $ ldd  target/sample-graalvm
@@ -29,14 +32,15 @@ $ ./target/sample-graalvm prop
 $ ./target/sample-graalvm -Dapp.sample=hello prop
 ~~~
 
-## Differences between native-image and java:
+Output:
 
-- `Charset.defaultCharset()` returns `US-ASCII` instead of `UTF-8`
-  unless `-Dfile.encoding=UTF-8` is passed to `native-image`.
-  
-- `Locale.getDefault()` returns `en_US` instead of `en_GB`.
+- default: dynamically linked ELF, size 13'901'760, depending on `libz.so.1`, `libc.so.6`, `linux-vdso.so.1`, `ld-linux-x86-64.so.2`
+- with `--static`: statically linked ELF, size 15'513'328
 
-- System property `file.encoding` and `native.encoding` is `ANSI_X3.4-1968` instead of `UTF-8`
+## Differences between java and native-image
+
+- `Locale.getDefault()` returns `en_US` instead of `en_GB` if built in Docker.
+- System properties `native.encoding`, `stderr.encoding` and `stdout.encoding` are `ANSI_X3.4-1968` instead of `UTF-8` if built in Docker
 - System property `java.class.path` is empty
 - System property `java.home` is not set (but `java.endorsed.dirs` and `java.ext.dirs` are set and empty)
 - System property `java.library.path` differs

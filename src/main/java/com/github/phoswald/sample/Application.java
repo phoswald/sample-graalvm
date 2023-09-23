@@ -10,34 +10,32 @@ import java.util.Map;
 import java.util.TimeZone;
 
 public class Application {
-
+    
     public static void main(String[] args) {
         if (args.length >= 1) {
-            if (args[0].equals("about")) {
-                System.out.println(Application.class.getPackage().getName() + " "
-                        + Application.class.getPackage().getImplementationVersion());
-            } else if (args[0].equals("now")) {
-                System.out.println(ZonedDateTime.now());
-            } else if (args[0].equals("locnow")) {
-                System.out.println(LocalDateTime.now());
-            } else if (args[0].equals("locale")) {
-                System.out.println(Locale.getDefault());
-            } else if (args[0].equals("timezone")) {
-                System.out.println(TimeZone.getDefault().getID());
-            } else if (args[0].equals("charset")) {
-                System.out.println(Charset.defaultCharset().name());
-            } else if (args[0].equals("args")) {
-                System.out.println(Arrays.asList(args).toString());
-            } else if (args[0].equals("env")) {
-                printMap(System.getenv());
-            } else if (args[0].equals("prop")) {
-                printMap(System.getProperties());
-            } else if (args[0].equals("class")) {
-                System.out.println(Application.class.getName());
-            }
+            dispatch(args[0], args).run();
         } else {
             System.out.println("Hello, GraalVM world!");
         }
+    }
+
+    private static Runnable dispatch(String command, String[] args) {
+        return switch(command) {
+            case "about" -> () -> {
+                System.out.println(Application.class.getPackage().getName() + " "
+                    + Application.class.getPackage().getImplementationVersion());
+            };
+            case "now" -> () -> System.out.println(ZonedDateTime.now());
+            case "locnow" -> () -> System.out.println(LocalDateTime.now());
+            case "locale" -> () -> System.out.println(Locale.getDefault());
+            case "timezone" -> () -> System.out.println(TimeZone.getDefault().getID());
+            case "charset" -> () -> System.out.println(Charset.defaultCharset().name());
+            case "args" -> () -> System.out.println(Arrays.asList(args).toString());
+            case "env" -> () -> printMap(System.getenv());
+            case "prop" -> () -> printMap(System.getProperties());
+            case "class" -> () -> System.out.println(Application.class.getName());
+            default -> () -> System.out.println("Invalid command: " + command);
+        };
     }
 
     private static void printMap(Map<?, ?> map) {
