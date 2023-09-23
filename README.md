@@ -1,6 +1,6 @@
 # sample-graalvm
 
-Experiments with GraalVM
+Experiments with GraalVM's native-image
 
 Links:
 
