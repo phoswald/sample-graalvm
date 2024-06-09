@@ -16,9 +16,7 @@ $ java -cp target/sample-graalvm-*.jar com.github.phoswald.sample.Application pr
 ~~~
 
 ~~~
-$ ./native-image.sh --no-fallback
-
-$ ./native-image-docker.sh --no-fallback
+$ ./native-image.sh        --no-fallback
 $ ./native-image-docker.sh --no-fallback --static --libc=musl
 
 $ file target/sample-graalvm
@@ -33,8 +31,8 @@ $ ./target/sample-graalvm -Dapp.sample=hello prop
 
 Output:
 
-- default: dynamically linked ELF, size 13'901'760, depending on `libz.so.1`, `libc.so.6`, `linux-vdso.so.1`, `ld-linux-x86-64.so.2`
-- with `--static`: statically linked ELF, size 15'513'328
+- default: dynamically linked ELF, size 13'581'592, depending on `libz.so.1`, `libc.so.6`, `linux-vdso.so.1`, `ld-linux-x86-64.so.2`
+- with `--static`: statically linked ELF, size 13'237'072
 
 ## Differences between java and native-image
 
