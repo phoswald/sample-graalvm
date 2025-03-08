@@ -9,7 +9,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>22</maven.compiler.release>
+    <maven.compiler.release>23</maven.compiler.release>
   </properties>
   
   <build>
@@ -17,6 +17,29 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.14.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <?m2e execute onConfiguration?>
+            <id>build-native-image</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>build-native-image.sh</executable>
+              <arguments>
+                <argument>--no-fallback</argument>
+                <argument>--static</argument>
+                <argument>--libc=musl</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

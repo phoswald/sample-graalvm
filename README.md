@@ -16,9 +16,6 @@ $ java -cp target/sample-graalvm-*.jar com.github.phoswald.sample.Application pr
 ~~~
 
 ~~~
-$ ./native-image.sh        --no-fallback
-$ ./native-image-docker.sh --no-fallback --static --libc=musl
-
 $ file target/sample-graalvm
 $ ldd  target/sample-graalvm
 
@@ -31,8 +28,9 @@ $ ./target/sample-graalvm -Dapp.sample=hello prop
 
 Output:
 
-- default: dynamically linked ELF, size 13'581'592, depending on `libz.so.1`, `libc.so.6`, `linux-vdso.so.1`, `ld-linux-x86-64.so.2`
-- with `--static`: statically linked ELF, size 13'237'072
+- default: dynamically linked ELF, size 14'092'472, depending on `libz.so.1`, `libc.so.6`, `linux-vdso.so.1`, `ld-linux-x86-64.so.2`
+- with `--static-nolibc`: dynamically linked ELF, size 14'092'552, depending on `libc.so.6`, `linux-vdso.so.1`, `ld-linux-x86-64.so.2`
+- with `--static --libc=musl`: statically linked ELF, size 13'698'264
 
 ## Differences between java and native-image
 
@@ -45,3 +43,9 @@ Output:
 - System properties `java.runtime.name` and `java.runtime.version` differ
 - System properties `java.vendor*` and `java.vm*` and `sun.*` differ
 - System properties `user.country` and `user.language` are not set
+
+## Installation
+
+Install native-image from https://github.com/graalvm/graalvm-ce-builds/releases
+
+Install musl as described in https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/ (only required for `native-image --static --libc=musl`)
