@@ -25,17 +25,21 @@
         <executions>
           <execution>
             <?m2e execute onConfiguration?>
-            <id>build-native-image</id>
+            <id>exec-native-image</id>
             <phase>package</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>build-native-image.sh</executable>
+              <executable>native-image</executable>
               <arguments>
                 <argument>--no-fallback</argument>
                 <argument>--static</argument>
                 <argument>--libc=musl</argument>
+                <argument>-cp</argument>
+                <argument>target/${project.artifactId}-${project.version}.jar</argument>
+                <argument>com.github.phoswald.sample.Application</argument>
+                <argument>target/${project.artifactId}</argument>
               </arguments>
             </configuration>
           </execution>
