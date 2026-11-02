@@ -34,7 +34,8 @@ Output:
 
 ## Differences between java and native-image
 
-- `Locale.getDefault()` returns `en_US` instead of `en_GB` if built in Docker.
+- ~~`Locale.getDefault()` returns `en_US` instead of `en_GB` if built in Docker.~~ (fixed with v25?)
+- ~~`System.console()` does not work if built in Docker.~~ (fixed with v25?)
 - System properties `native.encoding`, `stderr.encoding` and `stdout.encoding` 
   are `ANSI_X3.4-1968` (which is equivalent to `US-ASCII`) instead of `UTF-8` if built in Docker
 - System property `java.class.path` is empty

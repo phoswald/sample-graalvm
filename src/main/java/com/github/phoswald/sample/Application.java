@@ -34,6 +34,7 @@ public class Application {
             case "env" -> () -> printMap(System.getenv());
             case "prop" -> () -> printMap(System.getProperties());
             case "class" -> () -> System.out.println(Application.class.getName());
+            case "console" -> () -> System.console().format("Hello, %s!\n", new String(System.console().readPassword("Name: ")));
             default -> () -> System.out.println("Invalid command: " + command);
         };
     }
